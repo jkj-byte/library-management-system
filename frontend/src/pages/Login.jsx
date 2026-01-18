@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../services/supabase";
 import { useNavigate, Link } from "react-router-dom";
+import "./Auth.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ function Login() {
       return;
     }
 
-    // 🔐 JWT from Supabase
+    // JWT from Supabase
     const token = data.session.access_token;
 
     // store JWT
@@ -31,36 +32,37 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="auth-page login-bg">
+      <div className="auth-card">
+        <h2>Welcome Back 👋</h2>
+        <p>Login to manage your personal library</p>
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form className="auth-form" onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <br /><br />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <button className="auth-btn" type="submit">
+            Login
+          </button>
+        </form>
 
-        <br /><br />
-
-        <button type="submit">Login</button>
-      </form>
-
-      <p>
-        Don’t have an account? <Link to="/signup">Signup</Link>
-      </p>
+        <div className="auth-footer">
+          Don’t have an account? <Link to="/signup">Sign up</Link>
+        </div>
+      </div>
     </div>
   );
 }

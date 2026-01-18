@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../services/supabase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./Auth.css";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -24,32 +25,37 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
+    <div className="auth-page signup-bg">
+      <div className="auth-card">
+        <h2>Create Account 🚀</h2>
+        <p>Start building your digital library</p>
 
-      <form onSubmit={handleSignup}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form className="auth-form" onSubmit={handleSignup}>
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <br /><br />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <button className="auth-btn" type="submit">
+            Sign Up
+          </button>
+        </form>
 
-        <br /><br />
-
-        <button type="submit">Signup</button>
-      </form>
+        <div className="auth-footer">
+          Already have an account? <Link to="/login">Login</Link>
+        </div>
+      </div>
     </div>
   );
 }

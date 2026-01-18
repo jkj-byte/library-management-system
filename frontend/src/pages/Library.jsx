@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Library.css";
 
 function Library() {
   const navigate = useNavigate();
@@ -116,79 +117,65 @@ function Library() {
 
   // ===== UI =====
   return (
-    <div>
-      <h2>My Library</h2>
+    <div className="library-page">
+      <div className="library-container">
+        <div className="header">
+          <h2>📚 My Library</h2>
+          <button className="logout-btn" onClick={logout}>Logout</button>
+        </div>
 
-      <p>You have {books.length} books</p>
-
-      {/* SEARCH */}
-      <input
-        placeholder="Search by title"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button onClick={() => fetchBooks(localStorage.getItem("token"))}>
-        Search
-      </button>
-
-      <hr />
-
-      {/* ADD BOOK */}
-      <h3>Add Book</h3>
-
-      <input
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-
-      <input
-        placeholder="Author"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
-
-      <select value={status} onChange={(e) => setStatus(e.target.value)}>
-        <option>Reading</option>
-        <option>Completed</option>
-        <option>Plan-to-Read</option>
-      </select>
-
-      <button onClick={addBook}>Add</button>
-
-      <hr />
-
-      {/* BOOK LIST */}
-      <ul>
-        {books.map((book) => (
-          <li key={book.id}>
-            <b>{book.title}</b> – {book.author}{" "}
-            <select
-              value={book.status}
-              onChange={(e) =>
-                updateStatus(book.id, e.target.value)
-              }
-            >
+        <div className="section">
+          <h3>Add Book</h3>
+          <div className="form-row">
+            <input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+            <input placeholder="Author" value={author} onChange={e => setAuthor(e.target.value)} />
+            <select value={status} onChange={e => setStatus(e.target.value)}>
               <option>Reading</option>
               <option>Completed</option>
               <option>Plan-to-Read</option>
             </select>
-            <span>
-              {" "}
-              | Added:{" "}
-              {new Date(book.created_at).toLocaleString()}
-            </span>
-            <button
-    style={{ marginLeft: "10px", color: "red" }}
-    onClick={() => deleteBook(book.id)}
-  >
-    Delete
-  </button>
-          </li>
-        ))}
-      </ul>
+            <button className="primary" onClick={addBook}>Add</button>
+          </div>
+        </div>
 
-      <button onClick={logout}>Logout</button>
+        <div className="search-bar">
+          <input placeholder="Search by title" value={search} onChange={e => setSearch(e.target.value)} />
+          <button className="primary" onClick={() => fetchBooks(localStorage.getItem("token"))}>
+            Search
+          </button>
+        </div>
+
+        <p><b>You have {books.length} books</b></p>
+
+        <ul className="book-list">
+          {books.map(book => (
+            <li className="book-card" key={book.id}>
+              <div className="book-info">
+                <b>{book.title}</b> – {book.author}
+                <div>
+                  <span className={`status ${book.status}`}>{book.status}</span>
+                  {" · "}Added {new Date(book.created_at).toLocaleString()}
+                </div>
+              </div>
+
+              <div className="actions">
+                <select
+                  value={book.status}
+                  onChange={e => updateStatus(book.id, e.target.value)}
+                >
+                  <option>Reading</option>
+                  <option>Completed</option>
+                  <option>Plan-to-Read</option>
+                </select>
+
+                <button className="delete-btn" onClick={() => deleteBook(book.id)}>
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

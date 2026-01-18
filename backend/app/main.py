@@ -5,9 +5,9 @@ from typing import Optional
 import os
 from dotenv import load_dotenv
 
-# --------------------------------------------------
+
 # ENV
-# --------------------------------------------------
+
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -16,9 +16,8 @@ SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
 if not SUPABASE_URL or not SUPABASE_ANON_KEY:
     raise RuntimeError("Missing Supabase environment variables")
 
-# --------------------------------------------------
-# APP
-# --------------------------------------------------
+
+
 app = FastAPI()
 
 app.add_middleware(
@@ -29,9 +28,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --------------------------------------------------
+
 # AUTH HELPERS
-# --------------------------------------------------
+
 def get_current_user(authorization: Optional[str] = Header(None)):
     if not authorization:
         raise HTTPException(status_code=401, detail="Missing Authorization header")
@@ -64,16 +63,15 @@ def get_user_supabase(token: str):
         )
     )
 
-# --------------------------------------------------
+
 # HEALTH
-# --------------------------------------------------
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
-# --------------------------------------------------
 # BOOKS
-# --------------------------------------------------
+
 @app.get("/api/books")
 def list_books(
     search: Optional[str] = Query(None),
