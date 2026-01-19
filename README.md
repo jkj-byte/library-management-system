@@ -4,42 +4,45 @@ A secure full-stack Library Management System that allows users to manage their 
 
 Built using FastAPI, Supabase, and React (Vite).
 
-✨ Features
+✨ Features:
 
-User authentication (Email & Password)
+•User authentication (Email & Password)
 
-Add books with title, author, and reading status
+•Add books with title, author, and reading status
 
-View personal book list (latest added first)
+•View personal book list (latest added first)
 
-Search books by title
+•Search books by title
 
-Update reading status:
+•Update reading status:
 
-Reading
+•Reading
 
-Completed
+•Completed
 
-Plan-to-Read
+•Plan-to-Read
 
-Delete books (user-owned only)
+•Delete books (user-owned only)
 
-Display total book count
+•Display total book count
 
-Clean and responsive UI
+•Clean and responsive UI
 
-🧰 Tech Stack
-Frontend
 
-React (Vite) – fast, modern frontend framework
+🧰 Tech Stack:
 
-Backend
+Frontend:
 
-FastAPI – high-performance Python backend framework
+•React (Vite) – fast, modern frontend framework
 
-Database
+Backend:
 
-Supabase PostgreSQL
+•FastAPI – high-performance Python backend framework
+
+Database:
+
+•Supabase PostgreSQL
+
 
 Why Supabase Postgres?
 
@@ -53,25 +56,25 @@ Secure user-scoped data access
 
 🔐 Authentication Method
 
-Supabase Auth (Email & Password)
+  •Supabase Auth (Email & Password)
 
 On login:
 
-Supabase issues a JWT access token
+  •Supabase issues a JWT access token
 
 JWT is:
 
-Stored in browser localStorage
+  •Stored in browser localStorage
 
-Sent with every API request as Authorization: Bearer <token>
+  •Sent with every API request as Authorization: Bearer    <token>
 
-🔒 Security & Access Control
+🔒 Security & Access Control:
 
-Row Level Security (RLS) enabled on the books table
+•Row Level Security (RLS) enabled on the books table
 
-Backend uses Supabase anon key + user JWT
+•Backend uses Supabase anon key + user JWT
 
-No service role key is exposed
+•No service role key is exposed
 
 Guarantees:
 
@@ -90,14 +93,17 @@ All access rules enforced at database level
 ✅ Fully enforced using RLS + JWT
 
 🗂️ Database Schema
-books table
-Column	Type	Description
-id	uuid	Primary key
-title	text	Book title
-author	text	Book author
-status	text	Reading / Completed / Plan-to-Read
-user_id	uuid	References auth.users(id)
+
+books table:
+
+Column	   Type	    Description
+id	uuid	   Primary  key
+title	    text	    Book title
+author	   text	    Book author
+status	   text	    Reading / Completed / Plan-to-Read
+user_id	  uuid	    References auth.users(id)
 created_at	timestamp	Auto-generated
+
 ▶️ How to Run the Project Locally
 Backend
 cd backend
@@ -138,6 +144,7 @@ Supabase returns a JWT access token
 
 Frontend sends JWT in request headers
 
+
 Backend:
 
 Validates JWT using Supabase
@@ -146,20 +153,22 @@ Creates a Supabase client with user JWT
 
 Database RLS policies enforce access automatically
 
-📡 Example API Request
-Get User Books
 
-Request
+📡 Example API Request
+
+Get User Books:
+
+Request:
 
 GET /api/books
 
 
-Headers
+Headers:
 
 Authorization: Bearer <JWT_ACCESS_TOKEN>
 
 
-Response
+Response:
 
 {
   "total": 2,
