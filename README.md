@@ -4,6 +4,7 @@ A secure full-stack Library Management System that allows users to manage their 
 
 Built using FastAPI, Supabase, and React (Vite).
 
+
 ✨ Features:
 
 •User authentication (Email & Password)
@@ -29,6 +30,7 @@ Built using FastAPI, Supabase, and React (Vite).
 •Clean and responsive UI
 
 
+
 🧰 Tech Stack:
 
 Frontend:
@@ -44,6 +46,7 @@ Database:
 •Supabase PostgreSQL
 
 
+
 Why Supabase Postgres?
 
 Built-in authentication
@@ -53,6 +56,7 @@ Native Row Level Security (RLS)
 SQL + relational consistency
 
 Secure user-scoped data access
+
 
 🔐 Authentication Method
 
@@ -68,6 +72,8 @@ JWT is:
 
   •Sent with every API request as Authorization: Bearer    <token>
 
+
+
 🔒 Security & Access Control:
 
 •Row Level Security (RLS) enabled on the books table
@@ -75,6 +81,7 @@ JWT is:
 •Backend uses Supabase anon key + user JWT
 
 •No service role key is exposed
+
 
 Guarantees:
 
@@ -84,6 +91,8 @@ Users can only update/delete their own books
 
 All access rules enforced at database level
 
+
+
 📌 User Scope Guarantee
 
 ❌ A user cannot see another user's books
@@ -91,6 +100,9 @@ All access rules enforced at database level
 ❌ A user cannot modify another user's books
 
 ✅ Fully enforced using RLS + JWT
+
+
+
 
 🗂️ Database Schema
 
@@ -104,8 +116,13 @@ status	   text	    Reading / Completed / Plan-to-Read
 user_id	  uuid	    References auth.users(id)
 created_at	timestamp	Auto-generated
 
+
+
+
 ▶️ How to Run the Project Locally
-Backend
+
+Backend:
+
 cd backend
 uvicorn app.main:app --reload
 
@@ -114,7 +131,8 @@ Backend runs at:
 
 http://127.0.0.1:8000
 
-Frontend
+Frontend:
+
 cd frontend
 npm install
 npm run dev
@@ -123,6 +141,8 @@ npm run dev
 Frontend runs at:
 
 http://localhost:5173
+
+
 
 🔑 Environment Variables
 Backend (backend/.env.example)
@@ -135,6 +155,9 @@ VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 
 ⚠️ Actual .env files are not committed for security reasons.
+
+
+
 
 🧠 JWT Validation (Short Explanation)
 
@@ -154,6 +177,9 @@ Creates a Supabase client with user JWT
 Database RLS policies enforce access automatically
 
 
+
+
+
 📡 Example API Request
 
 Get User Books:
@@ -161,6 +187,7 @@ Get User Books:
 Request:
 
 GET /api/books
+
 
 
 Headers:
