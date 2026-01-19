@@ -1,89 +1,179 @@
-# 📚 Library Management System
+📚 Library Management System
 
 A secure full-stack Library Management System that allows users to manage their personal book collection with authentication and strict access control.
 
-Built using **FastAPI**, **Supabase**, and **React (Vite)**.
+Built using FastAPI, Supabase, and React (Vite).
 
----
+✨ Features
 
-## ✨ Features
+User authentication (Email & Password)
 
-- User authentication using Supabase (Email & Password)
-- Add new books with title, author, and reading status
-- View personal book list (latest added first)
-- Search books by title
-- Update reading status:
-  - Reading
-  - Completed
-  - Plan-to-Read
-- Delete books (user-owned only)
-- Total book count display
+Add books with title, author, and reading status
 
----
+View personal book list (latest added first)
 
-## 🔐 Security & Access Control
+Search books by title
 
-- Supabase **Row Level Security (RLS)** enabled
-- Each user can only:
-  - View their own books
-  - Update their own books
-  - Delete their own books
-- JWT-based authentication
-- Backend uses **Supabase anon key + user JWT**
-- No service role key exposed
+Update reading status:
 
----
+Reading
 
-## 🧰 Tech Stack
+Completed
 
-### Frontend
-- React (Vite)
+Plan-to-Read
 
-### Backend
-- FastAPI
-- Supabase Python SDK
+Delete books (user-owned only)
 
-### Database
-- Supabase PostgreSQL
-- Row Level Security (RLS)
+Display total book count
 
----
+Clean and responsive UI
 
-## ▶️ How to Run the Project
+🧰 Tech Stack
+Frontend
 
-### Backend
+React (Vite) – fast, modern frontend framework
 
+Backend
+
+FastAPI – high-performance Python backend framework
+
+Database
+
+Supabase PostgreSQL
+
+Why Supabase Postgres?
+
+Built-in authentication
+
+Native Row Level Security (RLS)
+
+SQL + relational consistency
+
+Secure user-scoped data access
+
+🔐 Authentication Method
+
+Supabase Auth (Email & Password)
+
+On login:
+
+Supabase issues a JWT access token
+
+JWT is:
+
+Stored in browser localStorage
+
+Sent with every API request as Authorization: Bearer <token>
+
+🔒 Security & Access Control
+
+Row Level Security (RLS) enabled on the books table
+
+Backend uses Supabase anon key + user JWT
+
+No service role key is exposed
+
+Guarantees:
+
+Users can only view their own books
+
+Users can only update/delete their own books
+
+All access rules enforced at database level
+
+📌 User Scope Guarantee
+
+❌ A user cannot see another user's books
+
+❌ A user cannot modify another user's books
+
+✅ Fully enforced using RLS + JWT
+
+🗂️ Database Schema
+books table
+Column	Type	Description
+id	uuid	Primary key
+title	text	Book title
+author	text	Book author
+status	text	Reading / Completed / Plan-to-Read
+user_id	uuid	References auth.users(id)
+created_at	timestamp	Auto-generated
+▶️ How to Run the Project Locally
+Backend
 cd backend
-
 uvicorn app.main:app --reload
 
 
+Backend runs at:
 
-### Frontend:
+http://127.0.0.1:8000
 
+Frontend
 cd frontend
-
 npm install
-
 npm run dev
 
 
+Frontend runs at:
 
----
-## 📌 User Scope Guarantee
+http://localhost:5173
 
-- A user **cannot see another user's books**
-- A user **cannot update or delete another user's books**
-- All access control is enforced using **RLS + JWT**
+🔑 Environment Variables
+Backend (backend/.env.example)
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+
+Frontend (frontend/.env.example)
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 
----
+⚠️ Actual .env files are not committed for security reasons.
 
-\## Author
+🧠 JWT Validation (Short Explanation)
+
+Frontend authenticates user via Supabase Auth
+
+Supabase returns a JWT access token
+
+Frontend sends JWT in request headers
+
+Backend:
+
+Validates JWT using Supabase
+
+Creates a Supabase client with user JWT
+
+Database RLS policies enforce access automatically
+
+📡 Example API Request
+Get User Books
+
+Request
+
+GET /api/books
+
+
+Headers
+
+Authorization: Bearer <JWT_ACCESS_TOKEN>
+
+
+Response
+
+{
+  "total": 2,
+  "books": [
+    {
+      "id": "uuid",
+      "title": "Clean Code",
+      "author": "Robert C. Martin",
+      "status": "Reading",
+      "created_at": "2024-01-01T10:00:00"
+    }
+  ]
+}
+
+👤 Author
 
 Joel K Joseph
-
-
-
-
-
